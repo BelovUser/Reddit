@@ -6,14 +6,36 @@
 </head>
 <body>
 <h1>Submit Post</h1>
-<form>
+<form th:action="@{/trend/update}" th:method="POST">
     <label>
-        <input th:type="text" placeholder="title..">
+        <input th:type="text" placeholder="title.." th:name="title">
         <br>
-        <input th:type="text" placeholder="url..">
+        <input th:type="text" placeholder="url.." th:name="url">
         <br>
         <button>add post</button>
     </label>
+    <table th:each="post: ${posts}" th:if="${not #lists.isEmpty(posts)}">
+        <tr>
+            <th></th>
+            <th></th>
+            <th></th>
+            <th></th>
+        </tr>
+        <tr>
+            <td th:text="${post.getLikes()}"></td>
+            <td>
+                <form th:action="@{/trend/like/{id}(id=${post.getId()})}" th:method="POST">
+                    <button type="submit">+</button>
+                </form>
+            </td>
+            <td>
+                <form th:action="@{/trend/dislike/{id}(id=${post.getId()})}" th:method="POST">
+                    <button type="submit">-</button>
+                </form>
+            </td>
+            <td><a th:href="${post.getUrl()}" th:text="${post.getTitle()}"></a></td>
+        </tr>
+    </table>
 </form>
 </body>
 </html>

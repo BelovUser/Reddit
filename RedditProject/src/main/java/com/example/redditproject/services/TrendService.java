@@ -5,6 +5,7 @@ import com.example.redditproject.repositories.RepositoryTrend;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.util.List;
 import java.util.Optional;
 
 @Service
@@ -27,5 +28,9 @@ public class TrendService {
 
     public Optional<TrendPost> getTrendPostById(Long postId) {
         return repositoryTrend.findById(postId);
+    }
+
+    public List<TrendPost> getPostsSortedByLikes() {
+        return repositoryTrend.findAllByOrderByLikesDesc();
     }
 }

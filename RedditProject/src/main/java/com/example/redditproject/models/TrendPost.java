@@ -10,7 +10,7 @@ public class TrendPost {
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
     private Long id;
-    private int likes;
+    private int likes = 0;
     private String title;
 
     private String url;

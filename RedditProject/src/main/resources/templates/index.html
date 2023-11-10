@@ -16,9 +16,17 @@
     </tr>
     <tr>
         <td th:text="${post.getLikes()}"></td>
-        <td><a href="random">+</a></td>
-        <td><a href="random">-</a></td>
-        <td><a th:href="${post.getUrl()}" th:text="${post.getTitle()}">www.random.com</a></td>
+        <td>
+            <form th:action="@{/trend/like/{id}(id=${post.getId()})}" th:method="POST">
+                <button type="submit">+</button>
+            </form>
+        </td>
+        <td>
+            <form th:action="@{/trend/dislike/{id}(id=${post.getId()})}" th:method="POST">
+                <button type="submit">-</button>
+            </form>
+        </td>
+        <td><a th:href="${post.getUrl()}" th:text="${post.getTitle()}"></a></td>
     </tr>
 </table>
 <p th:unless="${not #lists.isEmpty(posts)}">nobody posted yet...</p>
