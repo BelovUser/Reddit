@@ -12,4 +12,9 @@ public class PageController {
     public String homePage(){
         return "index";
     }
+
+    @GetMapping("/add")
+    public String addPage(){
+        return "add";
+    }
 }
