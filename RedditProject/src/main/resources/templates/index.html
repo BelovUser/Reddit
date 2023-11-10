@@ -7,8 +7,9 @@
 <body>
 <h1>Trending Post</h1>
 <a href="/trend/add">add site</a>
-<a href="/random">acc information</a>
+<a href="/acc/information">acc information</a>
 <a href="/random">your posts</a>
+<a href="/trend/posts">home page</a>
 
 <table th:each="post: ${posts}" th:if="${not #lists.isEmpty(posts)}">
     <tr>

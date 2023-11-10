@@ -29,6 +29,7 @@ public class PageController {
         return "add";
     }
 
+
     @PostMapping("/update")
     public String update(@RequestParam String title,@RequestParam String url){
         TrendPost tp = new TrendPost();
