@@ -21,24 +21,20 @@ public class PageController {
         this.trendService = trendService;
     }
 
-    @GetMapping("/posts/{id}")
-    public String homePage(Model model, @PathVariable Optional<Long> id){
-        if(id.isEmpty()) {
-        return "redirect: /register/";
-        } else {
-            model.addAttribute("posts",trendService.getPostsSortedByLikes());
-            return "index";
-        }
+    @GetMapping("/posts")
+    public String homePage(Model model) {
+        model.addAttribute("posts", trendService.getPostsSortedByLikes());
+        return "index";
     }
 
     @GetMapping("/add")
-    public String addPost(){
+    public String addPost() {
         return "add";
     }
 
 
     @PostMapping("/update")
-    public String update(@RequestParam String title,@RequestParam String url){
+    public String update(@RequestParam String title, @RequestParam String url) {
         TrendPost tp = new TrendPost();
         tp.setTitle(title);
         tp.setUrl(url);
@@ -47,7 +43,7 @@ public class PageController {
     }
 
     @PostMapping("/like/{id}")
-    public String incrementLike(@PathVariable long id){
+    public String incrementLike(@PathVariable long id) {
         TrendPost post = trendService.getTrendPostById(id).get();
         post.setLikes(post.getLikes() + 1);
         trendService.saveTrendPost(post);
@@ -55,7 +51,7 @@ public class PageController {
     }
 
     @PostMapping("/dislike/{id}")
-    public String decrementLike(@PathVariable long id){
+    public String decrementLike(@PathVariable long id) {
         TrendPost post = trendService.getTrendPostById(id).get();
         post.setLikes(post.getLikes() - 1);
         trendService.saveTrendPost(post);
