@@ -1,0 +1,9 @@
+package com.example.redditproject.repositories;
+
+import com.example.redditproject.models.RedditUser;
+import org.springframework.data.repository.CrudRepository;
+import org.springframework.stereotype.Repository;
+
+@Repository
+public interface RepositoryUser extends CrudRepository<RedditUser,Long> {
+}
