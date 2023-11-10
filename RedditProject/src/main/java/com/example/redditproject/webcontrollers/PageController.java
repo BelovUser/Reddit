@@ -7,6 +7,9 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 
+import javax.lang.model.element.VariableElement;
+import java.util.Optional;
+
 @Controller
 @RequestMapping("/trend")
 public class PageController {
@@ -18,14 +21,18 @@ public class PageController {
         this.trendService = trendService;
     }
 
-    @GetMapping("/posts")
-    public String homePage(Model model){
-        model.addAttribute("posts",trendService.getPostsSortedByLikes());
-        return "index";
+    @GetMapping("/posts/{id}")
+    public String homePage(Model model, @PathVariable Optional<Long> id){
+        if(id.isEmpty()) {
+        return "redirect: /register/";
+        } else {
+            model.addAttribute("posts",trendService.getPostsSortedByLikes());
+            return "index";
+        }
     }
 
     @GetMapping("/add")
-    public String addPage(){
+    public String addPost(){
         return "add";
     }
 
