@@ -8,7 +8,7 @@ import java.util.Optional;
 
 @Service
 public class TrendService{
-    
+
     @Autowired
     private RepositoryTrend repositoryTrend = new RepositoryTrend() {
         @Override
