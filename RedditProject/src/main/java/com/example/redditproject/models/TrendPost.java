@@ -13,6 +13,16 @@ public class TrendPost {
     private int likes;
     private String title;
 
+    private String url;
+
+    public void setUrl(String url) {
+        this.url = url;
+    }
+
+    public String getUrl() {
+        return url;
+    }
+
     public void setLikes(int likes) {
         this.likes = likes;
     }

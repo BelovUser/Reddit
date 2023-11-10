@@ -16,4 +16,16 @@ public class TrendService {
     public TrendService(RepositoryTrend repositoryTrend) {
         this.repositoryTrend = repositoryTrend;
     }
+
+    public Iterable<TrendPost> getTrendingPosts() {
+        return repositoryTrend.findAll();
+    }
+
+    public void saveTrendPost(TrendPost trendPost) {
+        repositoryTrend.save(trendPost);
+    }
+
+    public Optional<TrendPost> getTrendPostById(Long postId) {
+        return repositoryTrend.findById(postId);
+    }
 }

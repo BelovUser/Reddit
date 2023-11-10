@@ -3,6 +3,7 @@ package com.example.redditproject.webcontrollers;
 import com.example.redditproject.services.TrendService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -11,7 +12,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 @RequestMapping("/trend")
 public class PageController {
 
-    private TrendService trendService;
+    private final TrendService trendService;
 
     @Autowired
     public PageController(TrendService trendService) {
@@ -19,7 +20,8 @@ public class PageController {
     }
 
     @GetMapping("/posts")
-    public String homePage(){
+    public String homePage(Model model){
+        model.addAttribute("posts",trendService.getTrendingPosts());
         return "index";
     }
 
