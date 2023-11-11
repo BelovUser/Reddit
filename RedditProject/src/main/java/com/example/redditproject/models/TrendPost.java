@@ -3,6 +3,7 @@ package com.example.redditproject.models;
 import jakarta.persistence.*;
 
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 
 @Entity
@@ -13,8 +14,17 @@ public class TrendPost {
     private int likes = 0;
     private String title;
     private String url;
+    private String date;
     @ManyToMany(mappedBy = "userPosts")
     private List<RedditUser> Users = new ArrayList<>();
+
+    public String getDate() {
+        return date;
+    }
+
+    public void setDate(String date) {
+        this.date = date;
+    }
 
     public List<RedditUser> getUsers() {
         return Users;

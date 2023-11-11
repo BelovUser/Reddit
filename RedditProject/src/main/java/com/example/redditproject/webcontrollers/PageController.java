@@ -10,6 +10,8 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
+import java.text.SimpleDateFormat;
+import java.util.Date;
 import java.util.Optional;
 
 @Controller
@@ -45,8 +47,10 @@ public class PageController {
     @PostMapping("/update/{userId}")
     public String update(@RequestParam String title, @RequestParam String url, @PathVariable Long userId, RedirectAttributes redirectAttributes) {
         TrendPost tp = new TrendPost();
+        SimpleDateFormat formatter = new SimpleDateFormat("dd/MM/yyyy HH:mm");
         tp.setTitle(title);
         tp.setUrl(url);
+        tp.setDate(formatter.format(new Date()));
         trendService.saveTrendPost(tp);
 
         RedditUser userOptional = redditUserService.getById(userId).get();

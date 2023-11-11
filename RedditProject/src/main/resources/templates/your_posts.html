@@ -20,7 +20,7 @@
   </tr>
   <tr th:each="post: ${posts}">
     <td th:text="${post.getLikes()}"></td>
-    <td>2002-11-23-15:00</td>
+    <td th:text="${post.getDate()}"></td>
     <td><a th:href="${post.getUrl()}" th:text="${post.getTitle()}"></a></td>
     <td><button>delete</button></td>
   </tr>
