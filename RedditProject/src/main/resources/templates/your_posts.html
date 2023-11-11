@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org/">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+<h1>Your Posts</h1>
+<a th:href="@{/trend/add/{userId}(userId = ${userId})}">post something</a>
+<a th:href="@{/acc/information/{userId}(userId = ${userId})}">acc information</a>
+<a th:href="@{/your_posts/page/{userId}(userId = ${userId})}">your posts</a>
+<a th:href="@{/trend/posts/{userId}(userId = ${userId})}">home page</a>
+<br>
+<table>
+  <tr>
+    <th>Likes</th>
+    <th>Date</th>
+    <th>Title</th>
+    <th>Delete</th>
+  </tr>
+  <tr>
+    <td>3</td>
+    <td>2002-11-23-15:00</td>
+    <td>random</td>
+    <td><button>delete</button></td>
+  </tr>
+</table>
+</body>
+</html>
