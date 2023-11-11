@@ -1,9 +1,9 @@
 package com.example.redditproject.models;
 
-import jakarta.persistence.Entity;
-import jakarta.persistence.GeneratedValue;
-import jakarta.persistence.GenerationType;
-import jakarta.persistence.Id;
+import jakarta.persistence.*;
+
+import java.util.ArrayList;
+import java.util.List;
 
 @Entity
 public class RedditUser {
@@ -13,6 +13,12 @@ public class RedditUser {
     private Long id;
     private String username;
     private String password;
+    @ManyToMany
+    private List<TrendPost> userPosts = new ArrayList<>();
+
+    public List<TrendPost> getUserPosts() {
+        return userPosts;
+    }
 
     public void setUsername(String username) {
         this.username = username;

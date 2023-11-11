@@ -1,9 +1,9 @@
 package com.example.redditproject.models;
 
-import jakarta.persistence.Entity;
-import jakarta.persistence.GeneratedValue;
-import jakarta.persistence.GenerationType;
-import jakarta.persistence.Id;
+import jakarta.persistence.*;
+
+import java.util.ArrayList;
+import java.util.List;
 
 @Entity
 public class TrendPost {
@@ -12,8 +12,13 @@ public class TrendPost {
     private Long id;
     private int likes = 0;
     private String title;
-
     private String url;
+    @ManyToMany(mappedBy = "userPosts")
+    private List<RedditUser> Users = new ArrayList<>();
+
+    public List<RedditUser> getUsers() {
+        return Users;
+    }
 
     public void setUrl(String url) {
         this.url = url;
