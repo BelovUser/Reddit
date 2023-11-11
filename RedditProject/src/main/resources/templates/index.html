@@ -6,10 +6,10 @@
 </head>
 <body>
 <h1>Trending Post</h1>
-<a href="/trend/add">post something</a>
-<a href="/acc/information">acc information</a>
+<a th:href="@{/trend/add/{userId}(userId = ${user.getId()})}">post something</a>
+<a th:href="@{/acc/information/{userId}(userId = ${user.getId()})}">acc information</a>
 <a href="/random">your posts</a>
-<a href="/trend/posts">home page</a>
+<a th:href="@{/trend/posts/{userId}(userId = ${user.getId()})}">home page</a>
 
 <table th:each="post: ${posts}" th:if="${not #lists.isEmpty(posts)}">
     <tr>

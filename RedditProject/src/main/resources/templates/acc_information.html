@@ -1,39 +1,39 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="en" xmlns:th="http://www.thymeleaf.org/">
 <head>
     <meta charset="UTF-8">
     <title>Title</title>
 </head>
 <body>
 <h1>Account Information</h1>
-<a href="/trend/add">post something</a>
-<a href="/acc/information">acc information</a>
+<a th:href="@{/trend/add/{userId}(userId = ${user.getId()})}">post something</a>
+<a th:href="@{/acc/information/{userId}(userId = ${user.getId()})}">acc information</a>
 <a href="/random">your posts</a>
-<a href="/trend/posts">home page</a>
+<a th:href="@{/trend/posts/{userId}(userId = ${user.getId()})}">home page</a>
 <br>
-<h1>Hi user</h1>
+<h1 th:text="'Hi! ' + ${user.getUsername()}"></h1>
 <table>
     <tr>
     <th>Your Username</th>
     <th>Your Password</th>
     </tr>
     <tr>
-        <td>something</td>
-        <td>something</td>
+        <td th:text="${user.getUsername()}"></td>
+        <td th:text="${user.getPassword()}"></td>
     </tr>
 </table>
 <br>
 <h2>Change information:</h2>
-<form>
+<form th:action="@{/acc/update/{userId}(userId= ${userId})}" th:method="POST">
     <label>
-        <input th:type="text" placeholder="username" th:name="username"/>
+        <input th:type="text" th:value="${user.getUsername()}" th:name="username"/>
     </label>
     <br>
     <label>
-        <input th:type="text" placeholder="password" th:name="password"/>
+        <input th:type="text" th:value="${user.getPassword()}" th:name="password"/>
     </label>
     <br>
-    <button th:type="submit">change</button>
+    <button th:type="submit">confirm changes</button>
 </form>
 </body>
 </html>

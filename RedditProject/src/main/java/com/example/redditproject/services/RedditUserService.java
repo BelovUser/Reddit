@@ -32,4 +32,8 @@ public class RedditUserService {
     public void deleteUser(Long userId) {
         repositoryUser.deleteById(userId);
     }
+
+    public Optional<RedditUser> getById(Long userId){
+        return repositoryUser.findById(userId);
+    }
 }

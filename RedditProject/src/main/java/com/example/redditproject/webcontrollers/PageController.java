@@ -1,24 +1,26 @@
 package com.example.redditproject.webcontrollers;
 
 import com.example.redditproject.models.TrendPost;
+import com.example.redditproject.services.RedditUserService;
 import com.example.redditproject.services.TrendService;
-import jakarta.persistence.GeneratedValue;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
-import javax.lang.model.element.VariableElement;
 import java.util.Optional;
 
 @Controller
 @RequestMapping("/trend")
 public class PageController {
 
+    private final RedditUserService redditUserService;
     private final TrendService trendService;
 
     @Autowired
-    public PageController(TrendService trendService) {
+    public PageController(RedditUserService redditUserService, TrendService trendService) {
+        this.redditUserService = redditUserService;
         this.trendService = trendService;
     }
 
@@ -27,23 +29,26 @@ public class PageController {
         if(userId.isEmpty()){
             return "redirect:/register/page";
         }
+        model.addAttribute("user",redditUserService.getById(userId.get()).get());
         model.addAttribute("posts", trendService.getPostsSortedByLikes());
         return "index";
     }
 
-    @GetMapping("/add")
-    public String addPost() {
+    @GetMapping("/add/{userId}")
+    public String addPost(@PathVariable Long userId, RedirectAttributes redirectAttributes) {
+        redirectAttributes.addAttribute("userId",userId);
         return "add";
     }
 
 
-    @PostMapping("/update")
-    public String update(@RequestParam String title, @RequestParam String url) {
+    @PostMapping("/update/{userId}")
+    public String update(@RequestParam String title, @RequestParam String url, @PathVariable Long userId, RedirectAttributes redirectAttributes) {
         TrendPost tp = new TrendPost();
         tp.setTitle(title);
         tp.setUrl(url);
         trendService.saveTrendPost(tp);
-        return "redirect:/trend/posts";
+        redirectAttributes.addAttribute("userId",userId);
+        return "redirect:/trend/posts/{userId}";
     }
 
     @PostMapping("/like/{id}")
