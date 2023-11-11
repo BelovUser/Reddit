@@ -8,6 +8,7 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 @Controller
 @RequestMapping("/register")
@@ -26,11 +27,12 @@ public class RegisterController {
     }
 
     @PostMapping("/create")
-    public String createAcc(@RequestParam String username, @RequestParam String password){
+    public String createAcc(@RequestParam String username, @RequestParam String password, RedirectAttributes redirectAttributes){
         RedditUser rd = new RedditUser();
         rd.setPassword(password);
         rd.setUsername(username);
         redditUserService.saveUser(rd);
-        return "redirect:/trend/posts";
+        redirectAttributes.addAttribute("userId", rd.getId());
+        return "redirect:/trend/posts/{userId}";
     }
 }

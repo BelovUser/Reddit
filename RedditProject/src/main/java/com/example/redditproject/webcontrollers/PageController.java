@@ -2,6 +2,7 @@ package com.example.redditproject.webcontrollers;
 
 import com.example.redditproject.models.TrendPost;
 import com.example.redditproject.services.TrendService;
+import jakarta.persistence.GeneratedValue;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -21,8 +22,11 @@ public class PageController {
         this.trendService = trendService;
     }
 
-    @GetMapping("/posts")
-    public String homePage(Model model) {
+    @GetMapping("/posts/{userId}")
+    public String homePage(Model model, @PathVariable Optional<Long> userId) {
+        if(userId.isEmpty()){
+            return "redirect:/register/page";
+        }
         model.addAttribute("posts", trendService.getPostsSortedByLikes());
         return "index";
     }
