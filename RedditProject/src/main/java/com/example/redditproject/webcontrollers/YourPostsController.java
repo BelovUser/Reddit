@@ -41,7 +41,7 @@ public class YourPostsController {
         });
 
         trendService.deleteById(postId);
-        redirectAttributes.addAttribute("userId", userOptional.map(RedditUser::getUserId).orElse(null));
+        redirectAttributes.addAttribute("userId", userOptional.get().getUserId());
         return "redirect:/your_posts/page/{userId}";
     }
 

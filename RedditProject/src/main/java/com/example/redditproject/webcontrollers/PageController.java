@@ -29,17 +29,36 @@ public class PageController {
 
     @GetMapping("/posts/{userId}")
     public String homePage(Model model, @PathVariable Optional<Long> userId) {
-        if(userId.isEmpty()){
+        if (userId.isEmpty()) {
             return "redirect:/register/page";
         }
-        model.addAttribute("user",redditUserService.getById(userId.get()).get());
-        model.addAttribute("posts", trendService.getPostsSortedByLikes());
+        model.addAttribute("posts", trendService.getPostsSortedByLikes(0, 10));
+        model.addAttribute("user", redditUserService.getById(userId.get()).get());
         return "index";
     }
 
+    @PostMapping("/ten_more/{userId}")
+    public String morePostsOnPage(Model model, @PathVariable Optional<Long> userId, @RequestParam Optional<Integer> fromPage, @RequestParam Optional<Integer> toPage, RedirectAttributes redirectAttributes) {
+        if (userId.isEmpty()) {
+            return "redirect:/register/page";
+        }
+        if (fromPage.isPresent() && toPage.isPresent()) {
+            trendService.addPages(fromPage.get(), toPage.get());
+            model.addAttribute("posts", trendService.addPages(fromPage.get(), toPage.get()));
+        } else {
+            model.addAttribute("posts", trendService.getPostsSortedByLikes(0, 10));
+        }
+        model.addAttribute("user", redditUserService.getById(userId.get()).orElse(null));
+
+        redirectAttributes.addAttribute("userId", userId.get());
+        return "redirect:/trend/posts/{userId}";
+
+    }
+
+
     @GetMapping("/add/{userId}")
     public String addPost(@PathVariable Long userId, RedirectAttributes redirectAttributes) {
-        redirectAttributes.addAttribute("userId",userId);
+        redirectAttributes.addAttribute("userId", userId);
         return "add";
     }
 
