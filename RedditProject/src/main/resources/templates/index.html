@@ -34,10 +34,10 @@
     </tr>
 </table>
 <p th:unless="${not #lists.isEmpty(posts)}">nobody posted yet...</p>
-<form th:if="${not #lists.isEmpty(posts)}" th:action="@{/trend/ten_more/{userId}(userId = ${user.getUserId()})}" th:method="POST">
+<form th:if="${not #lists.isEmpty(posts)}" th:action="@{/trend/ten_more/(userId = ${user.getUserId()})}" th:method="POST">
     <input type="hidden" name="fromPage" value="10" />
     <input type="hidden" name="toPage" value="10" />
-    <button>more posts</button>
+    <button type="submit">More Posts</button>
 </form>
 </body>
 </html>
