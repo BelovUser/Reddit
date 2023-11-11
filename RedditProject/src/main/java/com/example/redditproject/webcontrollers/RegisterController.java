@@ -32,7 +32,7 @@ public class RegisterController {
         rd.setPassword(password);
         rd.setUsername(username);
         redditUserService.saveUser(rd);
-        redirectAttributes.addAttribute("userId", rd.getId());
+        redirectAttributes.addAttribute("userId", rd.getUserId());
         return "redirect:/trend/posts/{userId}";
     }
 }

@@ -10,7 +10,7 @@ public class RedditUser {
 
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
-    private Long id;
+    private Long userId;
     private String username;
     private String password;
     @ManyToMany
@@ -36,11 +36,11 @@ public class RedditUser {
         return password;
     }
 
-    public void setId(Long id) {
-        this.id = id;
+    public void setUserId(Long id) {
+        this.userId = id;
     }
 
-    public Long getId() {
-        return id;
+    public Long getUserId() {
+        return userId;
     }
 }

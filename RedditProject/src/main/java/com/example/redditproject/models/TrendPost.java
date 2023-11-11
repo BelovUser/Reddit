@@ -9,7 +9,7 @@ import java.util.List;
 public class TrendPost {
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
-    private Long id;
+    private Long PostId;
     private int likes = 0;
     private String title;
     private String url;
@@ -44,11 +44,11 @@ public class TrendPost {
         return title;
     }
 
-    public void setId(Long id) {
-        this.id = id;
+    public void setPostId(Long id) {
+        this.PostId = id;
     }
 
-    public Long getId() {
-        return id;
+    public Long getPostId() {
+        return PostId;
     }
 }

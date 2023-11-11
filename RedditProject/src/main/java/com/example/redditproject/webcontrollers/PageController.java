@@ -1,5 +1,6 @@
 package com.example.redditproject.webcontrollers;
 
+import com.example.redditproject.models.RedditUser;
 import com.example.redditproject.models.TrendPost;
 import com.example.redditproject.services.RedditUserService;
 import com.example.redditproject.services.TrendService;
@@ -47,9 +48,15 @@ public class PageController {
         tp.setTitle(title);
         tp.setUrl(url);
         trendService.saveTrendPost(tp);
-        redirectAttributes.addAttribute("userId",userId);
+
+        RedditUser userOptional = redditUserService.getById(userId).get();
+        userOptional.getUserPosts().add(tp);
+        redditUserService.saveUser(userOptional);
+
+        redirectAttributes.addAttribute("userId", userId);
         return "redirect:/trend/posts/{userId}";
     }
+
 
     @PostMapping("/like/{id}")
     public String incrementLike(@PathVariable long id) {
