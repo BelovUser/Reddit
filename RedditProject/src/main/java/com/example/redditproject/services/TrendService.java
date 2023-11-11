@@ -33,4 +33,8 @@ public class TrendService {
     public List<TrendPost> getPostsSortedByLikes() {
         return repositoryTrend.findAllByOrderByLikesDesc();
     }
+
+    public void deleteById(Long postId) {
+        repositoryTrend.deleteById(postId);
+    }
 }

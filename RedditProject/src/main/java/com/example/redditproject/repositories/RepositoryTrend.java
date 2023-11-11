@@ -9,5 +9,6 @@ import java.util.List;
 @Repository
 public interface RepositoryTrend extends CrudRepository<TrendPost, Long> {
 
+
     List<TrendPost> findAllByOrderByLikesDesc();
 }

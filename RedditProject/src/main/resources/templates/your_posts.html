@@ -16,13 +16,16 @@
     <th>Likes</th>
     <th>Date</th>
     <th>Title</th>
-    <th>Delete</th>
   </tr>
   <tr th:each="post: ${posts}">
     <td th:text="${post.getLikes()}"></td>
     <td th:text="${post.getDate()}"></td>
     <td><a th:href="${post.getUrl()}" th:text="${post.getTitle()}"></a></td>
-    <td><button>delete</button></td>
+    <td>
+      <form th:action="@{/your_posts/delete/{postId}(postId=${post.getPostId()})}" th:method="POST">
+        <button th:type="submit">delete</button>
+      </form>
+    </td>
   </tr>
 </table>
 </body>

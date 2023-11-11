@@ -36,4 +36,11 @@ public class RedditUserService {
     public Optional<RedditUser> getById(Long userId){
         return repositoryUser.findById(userId);
     }
+
+    public Optional<RedditUser> findUserByPostId(Long postId) {
+        return repositoryUser.findAll().stream()
+                .filter(user -> user.getUserPosts().stream()
+                        .anyMatch(post -> post.getPostId().equals(postId)))
+                .findFirst();
+    }
 }

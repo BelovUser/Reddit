@@ -15,7 +15,7 @@ public class TrendPost {
     private String title;
     private String url;
     private String date;
-    @ManyToMany(mappedBy = "userPosts")
+    @ManyToMany(mappedBy = "userPosts", cascade = CascadeType.ALL)
     private List<RedditUser> Users = new ArrayList<>();
 
     public String getDate() {
@@ -29,6 +29,7 @@ public class TrendPost {
     public List<RedditUser> getUsers() {
         return Users;
     }
+
 
     public void setUrl(String url) {
         this.url = url;
