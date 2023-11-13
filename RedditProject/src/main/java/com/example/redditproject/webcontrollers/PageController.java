@@ -81,19 +81,21 @@ public class PageController {
     }
 
 
-    @PostMapping("/like/{id}")
-    public String incrementLike(@PathVariable long id) {
+    @PostMapping("/like/{id}/{userId}")
+    public String incrementLike(@PathVariable long userId,@PathVariable long id,RedirectAttributes redirectAttributes) {
         TrendPost post = trendService.getTrendPostById(id).get();
         post.setLikes(post.getLikes() + 1);
         trendService.saveTrendPost(post);
-        return "redirect:/trend/posts";
+        redirectAttributes.addAttribute("userId", userId);
+        return "redirect:/trend/posts/{userId}";
     }
 
-    @PostMapping("/dislike/{id}")
-    public String decrementLike(@PathVariable long id) {
+    @PostMapping("/dislike/{id}/{userId}")
+    public String decrementLike(@PathVariable long userId,@PathVariable long id,RedirectAttributes redirectAttributes) {
         TrendPost post = trendService.getTrendPostById(id).get();
         post.setLikes(post.getLikes() - 1);
         trendService.saveTrendPost(post);
-        return "redirect:/trend/posts";
+        redirectAttributes.addAttribute("userId",userId);
+        return "redirect:/trend/posts/{userId}";
     }
 }

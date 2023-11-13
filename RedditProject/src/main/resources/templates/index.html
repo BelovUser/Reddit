@@ -21,12 +21,12 @@
     <tr>
         <td th:text="${post.getLikes()}"></td>
         <td>
-            <form th:action="@{/trend/like/{id}(id=${post.getPostId()})}" th:method="POST">
+            <form th:action="@{/trend/like/{id}/{userId}(id=${post.getPostId()},userId=${user.getUserId()})}" th:method="POST">
                 <button type="submit">+</button>
             </form>
         </td>
         <td>
-            <form th:action="@{/trend/dislike/{id}(id=${post.getPostId()})}" th:method="POST">
+            <form th:action="@{/trend/dislike/{id}/{userId}(id=${post.getPostId()},userId=${user.getUserId()})}" th:method="POST">
                 <button type="submit">-</button>
             </form>
         </td>
@@ -34,7 +34,7 @@
     </tr>
 </table>
 <p th:unless="${not #lists.isEmpty(posts)}">nobody posted yet...</p>
-<form th:if="${not #lists.isEmpty(posts)}" th:action="@{/trend/ten_more/(userId = ${user.getUserId()})}" th:method="POST">
+<form th:if="${posts.size() >= 10}" th:action="@{/trend/ten_more/(userId = ${user.getUserId()})}" th:method="POST">
     <input type="hidden" name="fromPage" value="10" />
     <input type="hidden" name="toPage" value="10" />
     <button type="submit">More Posts</button>
