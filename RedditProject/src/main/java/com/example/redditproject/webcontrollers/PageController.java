@@ -21,6 +21,7 @@ public class PageController {
 
     private final RedditUserService redditUserService;
     private final TrendService trendService;
+    private int fixedSize = 5;
 
     @Autowired
     public PageController(RedditUserService redditUserService, TrendService trendService) {
@@ -34,17 +35,18 @@ public class PageController {
             return "redirect:/register/page";
         }
         if (pageSize.isPresent()) {
-            List<TrendPost> posts = trendService.getPostsSortedByLikes(0, pageSize.get());
+            this.fixedSize += pageSize.get();
+            List<TrendPost> posts = trendService.getPostsSortedByLikes(0, fixedSize);
             model.addAttribute("posts", posts);
         } else {
-            List<TrendPost> posts = trendService.getPostsSortedByLikes(0, 5);
+            List<TrendPost> posts = trendService.getPostsSortedByLikes(0, fixedSize);
             model.addAttribute("posts", posts);
         }
         model.addAttribute("user", redditUserService.getById(userId.get()).get());
         return "index";
     }
 
-    @PostMapping("/ten_more/{userId}")
+    @PostMapping("/five_more/{userId}")
     public String morePostsOnPage(Model model, @PathVariable Optional<Long> userId, @RequestParam Optional<Integer> pageNumber, RedirectAttributes redirectAttributes) {
         if (userId.isEmpty()) {
             return "redirect:/register/page";
