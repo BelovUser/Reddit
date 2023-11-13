@@ -39,7 +39,7 @@ public class PageController {
             List<TrendPost> posts = trendService.getPostsSortedByLikes(0, fixedSize);
             model.addAttribute("posts", posts);
         } else {
-            List<TrendPost> posts = trendService.getPostsSortedByLikes(0, fixedSize);
+            List<TrendPost> posts = trendService.getPostsSortedByLikes(0, 5);
             model.addAttribute("posts", posts);
         }
         model.addAttribute("user", redditUserService.getById(userId.get()).get());

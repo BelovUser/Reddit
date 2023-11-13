@@ -16,6 +16,13 @@ public class RedditUser {
     @ManyToMany
     private List<TrendPost> userPosts = new ArrayList<>();
 
+    @ManyToMany(mappedBy = "votedUsers", cascade = CascadeType.ALL)
+    private List<Vote> votedPost = new ArrayList<>();
+
+    public List<Vote> getVotedPost() {
+        return votedPost;
+    }
+
     public List<TrendPost> getUserPosts() {
         return userPosts;
     }
