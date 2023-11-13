@@ -10,6 +10,8 @@
 <a th:href="@{/acc/information/{userId}(userId = ${user.getUserId()})}">acc information</a>
 <a th:href="@{/your_posts/page/{userId}(userId = ${user.getUserId()})}">your posts</a>
 <a th:href="@{/trend/posts/{userId}(userId = ${user.getUserId()})}">home page</a>
+<a th:href="@{/liked_posts/}">liked posts</a>
+
 
 <table th:each="post: ${posts}" th:if="${not #lists.isEmpty(posts)}">
     <tr>

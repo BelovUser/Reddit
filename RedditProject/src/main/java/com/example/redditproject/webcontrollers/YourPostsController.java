@@ -26,7 +26,7 @@ public class YourPostsController {
 
     @GetMapping("/page/{userId}")
     public String page(@PathVariable Long userId, Model model){
-        model.addAttribute("userId",userId);
+        model.addAttribute("user", redditUserService.getById(userId).get());
         model.addAttribute("posts",redditUserService.getById(userId).get().getUserPosts());
         return "your_posts";
     }

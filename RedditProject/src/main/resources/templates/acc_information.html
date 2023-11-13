@@ -10,6 +10,7 @@
 <a th:href="@{/acc/information/{userId}(userId = ${user.getUserId()})}">acc information</a>
 <a th:href="@{/your_posts/page/{userId}(userId = ${user.getUserId()})}">your posts</a>
 <a th:href="@{/trend/posts/{userId}(userId = ${user.getUserId()})}">home page</a>
+<a th:href="@{/liked_posts/}">liked posts</a>
 <br>
 <h1 th:text="'Hi! ' + ${user.getUsername()}"></h1>
 <table>

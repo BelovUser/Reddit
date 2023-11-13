@@ -5,6 +5,19 @@
     <title>Title</title>
 </head>
 <body>
-
+<h1>Your Likes</h1>
+<a th:href="@{/trend/add/{userId}(userId = ${user.getUserId()})}">post something</a>
+<a th:href="@{/acc/information/{userId}(userId = ${user.getUserId()})}">acc information</a>
+<a th:href="@{/your_posts/page/{userId}(userId = ${user.getUserId()})}">your posts</a>
+<a th:href="@{/trend/posts/{userId}(userId = ${user.getUserId()})}">home page</a>
+<a th:href="@{/liked_posts/}">liked posts</a>
+<br>
+<table>
+    <tr>
+        <th>Likes</th>
+        <th>Date</th>
+        <th>Title</th>
+    </tr>
+</table>
 </body>
 </html>
