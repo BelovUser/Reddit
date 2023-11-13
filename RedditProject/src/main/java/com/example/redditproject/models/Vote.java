@@ -22,6 +22,13 @@ public class Vote {
     @ManyToMany
     private List<TrendPost> votedPosts = new ArrayList<>();
 
+    public List<RedditUser> getVotedUsers() {
+        return votedUsers;
+    }
+
+    public List<TrendPost> getVotedPosts() {
+        return votedPosts;
+    }
 
     public Long getId() {
         return id;
