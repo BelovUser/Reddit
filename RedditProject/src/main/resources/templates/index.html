@@ -34,9 +34,8 @@
     </tr>
 </table>
 <p th:unless="${not #lists.isEmpty(posts)}">nobody posted yet...</p>
-<form th:if="${posts.size() >= 10}" th:action="@{/trend/ten_more/(userId = ${user.getUserId()})}" th:method="POST">
-    <input type="hidden" name="fromPage" value="10" />
-    <input type="hidden" name="toPage" value="10" />
+<form th:if="${posts.size() >= 5}" th:action="@{/trend/ten_more/{userId}(userId = ${user.getUserId()})}" th:method="POST">
+    <input type="hidden" name="pageNumber" value="10" />
     <button type="submit">More Posts</button>
 </form>
 </body>

@@ -12,6 +12,7 @@ import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import java.text.SimpleDateFormat;
 import java.util.Date;
+import java.util.List;
 import java.util.Optional;
 
 @Controller
@@ -27,34 +28,33 @@ public class PageController {
         this.trendService = trendService;
     }
 
-    @GetMapping("/posts/{userId}")
-    public String homePage(Model model, @PathVariable Optional<Long> userId) {
+    @GetMapping(value = {"/posts/{userId}/{pageSize}", "/posts/{userId}"})
+    public String homePage(Model model, @PathVariable Optional<Long> userId, @PathVariable Optional<Integer> pageSize) {
         if (userId.isEmpty()) {
             return "redirect:/register/page";
         }
-        model.addAttribute("posts", trendService.getPostsSortedByLikes(0, 10));
+        if (pageSize.isPresent()) {
+            List<TrendPost> posts = trendService.getPostsSortedByLikes(0, pageSize.get());
+            model.addAttribute("posts", posts);
+        } else {
+            List<TrendPost> posts = trendService.getPostsSortedByLikes(0, 5);
+            model.addAttribute("posts", posts);
+        }
         model.addAttribute("user", redditUserService.getById(userId.get()).get());
         return "index";
     }
 
     @PostMapping("/ten_more/{userId}")
-    public String morePostsOnPage(Model model, @PathVariable Optional<Long> userId, @RequestParam Optional<Integer> fromPage, @RequestParam Optional<Integer> toPage, RedirectAttributes redirectAttributes) {
+    public String morePostsOnPage(Model model, @PathVariable Optional<Long> userId, @RequestParam Optional<Integer> pageNumber, RedirectAttributes redirectAttributes) {
         if (userId.isEmpty()) {
             return "redirect:/register/page";
         }
-        if (fromPage.isPresent() && toPage.isPresent()) {
-            trendService.addPages(fromPage.get(), toPage.get());
-            model.addAttribute("posts", trendService.addPages(fromPage.get(), toPage.get()));
-        } else {
-            model.addAttribute("posts", trendService.getPostsSortedByLikes(0, 10));
-        }
-        model.addAttribute("user", redditUserService.getById(userId.get()).orElse(null));
 
+        model.addAttribute("user", redditUserService.getById(userId.get()));
         redirectAttributes.addAttribute("userId", userId.get());
-        return "redirect:/trend/posts/{userId}";
-
+        redirectAttributes.addAttribute("pageSize", pageNumber.get());
+        return "redirect:/trend/posts/{userId}/{pageSize}";
     }
-
 
     @GetMapping("/add/{userId}")
     public String addPost(@PathVariable Long userId, RedirectAttributes redirectAttributes) {
