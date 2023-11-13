@@ -1,6 +1,7 @@
 package com.example.redditproject.webcontrollers;
 
 import com.example.redditproject.models.RedditUser;
+import com.example.redditproject.models.TrendPost;
 import com.example.redditproject.services.RedditUserService;
 import com.example.redditproject.services.TrendService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -45,5 +46,22 @@ public class YourPostsController {
         return "redirect:/your_posts/page/{userId}";
     }
 
+    @GetMapping("/edit/{postId}/{userId}")
+    public String editPage(@PathVariable Long postId,@PathVariable Long userId, Model model) {
+        model.addAttribute("postId",postId);
+        model.addAttribute("userId",userId);
+        model.addAttribute("post", trendService.getTrendPostById(postId));
+        return "edit_post";
+    }
+
+    @PostMapping("/update/{postId}/{userId}")
+    public String changePost(@PathVariable Long postId,@RequestParam String title,@RequestParam String url, RedirectAttributes redirectAttributes,@PathVariable Long userId) {
+        TrendPost post = trendService.getTrendPostById(postId).get();
+        post.setTitle(title);
+        post.setUrl(url);
+        trendService.saveTrendPost(post);
+        redirectAttributes.addAttribute("userId", userId);
+        return "redirect:/your_posts/page/{userId}";
+    }
 
 }

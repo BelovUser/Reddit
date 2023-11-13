@@ -27,6 +27,11 @@
         <button th:type="submit">delete</button>
       </form>
     </td>
+      <td>
+          <form th:action="@{/your_posts/edit/{postId}/{userId}(postId=${post.getPostId()},userId=${user.getUserId()})}" th:method="GET">
+              <button th:type="submit">edit</button>
+          </form>
+      </td>
   </tr>
 </table>
 </body>

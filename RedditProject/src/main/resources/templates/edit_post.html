@@ -1,0 +1,19 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+<h1>Edit Post</h1>
+<form th:action="@{/your_posts/update/{postId}/{userId}(postId=${postId},userId=${userId})}" th:method="POST">
+    <label>
+        <input th:type="text" th:value="${post.get().getTitle()}" th:name="title">
+        <br>
+        <input th:type="text" th:value="${post.get().getUrl()}" th:name="url">
+        <br>
+        <button>confirm changes</button>
+    </label>
+</form>
+</body>
+</html>
