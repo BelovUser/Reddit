@@ -38,14 +38,14 @@ public class VoteService {
     }
 
     public List<Vote> getAllVotes() {
-        return repositoryVote.findAll();
+        return (List<Vote>) repositoryVote.findAll();
     }
 
-    public List<Vote> findAllLikedVotedPost(List<TrendPost> posts){
+    public List<Vote> findAllLikedVotedPost(TrendPost posts){
         return repositoryVote.findAllByVotedPostsOrderByLike(posts);
     }
 
-    public List<Vote> findAllDislikedVotedPost(List<TrendPost> posts){
+    public List<Vote> findAllDislikedVotedPost(TrendPost posts){
         return repositoryVote.findAllByVotedPostsOrderByDislike(posts);
     }
 }

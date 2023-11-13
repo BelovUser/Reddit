@@ -1,8 +1,6 @@
 package com.example.redditproject.models;
 
-import jakarta.persistence.Entity;
-import jakarta.persistence.Id;
-import jakarta.persistence.ManyToMany;
+import jakarta.persistence.*;
 import org.apache.catalina.User;
 
 import java.util.ArrayList;
@@ -11,6 +9,7 @@ import java.util.List;
 @Entity
 public class Vote {
     @Id
+    @GeneratedValue(strategy = GenerationType.AUTO)
     private Long id;
     private int dislike = -1;
     private int like = 1;
