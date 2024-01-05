@@ -21,7 +21,7 @@ public class RegisterController {
         this.redditUserService = redditUserService;
     }
 
-    @GetMapping("/page")
+    @GetMapping("/")
     public String registerPage(){
         return "register";
     }

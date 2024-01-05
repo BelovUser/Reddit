@@ -18,13 +18,6 @@ public class TrendPost {
     @ManyToMany(mappedBy = "userPosts", cascade = CascadeType.ALL)
     private List<RedditUser> Users = new ArrayList<>();
 
-    @ManyToMany(mappedBy = "votedPosts", cascade = CascadeType.ALL)
-    private List<Vote> votedPosts = new ArrayList<>();
-
-    public List<Vote> getVotedPosts() {
-        return votedPosts;
-    }
-
     public String getDate() {
         return date;
     }

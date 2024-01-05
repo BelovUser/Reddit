@@ -2,10 +2,8 @@ package com.example.redditproject.webcontrollers;
 
 import com.example.redditproject.models.RedditUser;
 import com.example.redditproject.models.TrendPost;
-import com.example.redditproject.models.Vote;
 import com.example.redditproject.services.RedditUserService;
 import com.example.redditproject.services.TrendService;
-import com.example.redditproject.services.VoteService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -23,14 +21,12 @@ public class PageController {
 
     private final RedditUserService redditUserService;
     private final TrendService trendService;
-    private final VoteService voteService;
     private int fixedSize = 5;
 
     @Autowired
-    public PageController(RedditUserService redditUserService, TrendService trendService, VoteService voteService) {
+    public PageController(RedditUserService redditUserService, TrendService trendService) {
         this.redditUserService = redditUserService;
         this.trendService = trendService;
-        this.voteService = voteService;
     }
 
     @GetMapping(value = {"/posts/{userId}/{pageSize}", "/posts/{userId}"})
@@ -81,10 +77,6 @@ public class PageController {
         RedditUser user = redditUserService.getById(userId).get();
         user.getUserPosts().add(tp);
         redditUserService.saveUser(user);
-
-        Vote vote = new Vote();
-        vote.getVotedPosts().add(tp);
-        vote.getVotedUsers().add(user);
 
         redirectAttributes.addAttribute("userId", userId);
         return "redirect:/trend/posts/{userId}";
